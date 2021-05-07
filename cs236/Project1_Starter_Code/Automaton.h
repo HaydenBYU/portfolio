@@ -29,8 +29,15 @@ public:
     }
 
     // Every subclass must define this method
+    //FIXME: States after 0 may not need to be here
     virtual void S0(const std::string& input) = 0;
-
+    /*virtual void S1(const std::string& input) = 0;
+    virtual void S2(const std::string& input) = 0;
+    virtual void S3(const std::string& input) = 0;
+    virtual void S4(const std::string& input) = 0;
+    virtual void S5(const std::string& input) = 0;
+    virtual void S6(const std::string& input) = 0;
+    virtual void S7(const std::string& input) = 0;*/
     void Serr() {
         // Indicate the input was rejected
         inputRead = 0;
