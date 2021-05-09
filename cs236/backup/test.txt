@@ -1,0 +1,7 @@
+'Hello I am the test file'
+will you please let me
+Rules Schemes Facts Queries
+RUles Scheme Factss Queriee
+5 + 5 * 7 :- :
+#print
+#|Hello|# World

@@ -26,8 +26,11 @@ Lexer::Lexer() {
 }
 
 Lexer::~Lexer() {
-    for(unsigned int i = 0; i < automata.size(); i++){
-        delete automata[i];
+    for(Automaton* automaton : automata){
+        delete automaton;
+    }
+    for (Token* token : tokens) {
+        delete token;
     }
     /*automata.push_back(new ColonAutomaton());
     automata.push_back(new ColonDashAutomaton());
@@ -98,7 +101,7 @@ void Lexer::Run(std::string& input) {
                 lineNum++;
             }
             else{
-                Token* newToken= maxAutomaton->CreateToken(input.substr(0,1),lineNum);
+                Token* newToken= maxAutomaton->CreateToken(input.substr(0,maxRead),lineNum);
                 newToken->SetType("UNDEFINED");
                 tokens.push_back(newToken);
             }
@@ -110,13 +113,15 @@ void Lexer::Run(std::string& input) {
 
     }
     Automaton* Deceptaton = automata[0];
-    Token* EOFToken = Deceptaton->CreateToken("EOF",lineNum);
+    Token* EOFToken = Deceptaton->CreateToken("",lineNum);
     EOFToken->SetType("EOF_TYPE");
     tokens.push_back(EOFToken);
     Token* JRRToken;
     for(unsigned int i = 0; i < tokens.size(); i++){
         JRRToken->ToString(tokens.at(i));
+
     }
+    cout << "Total Tokens = " << tokens.size() << endl;
     /*
     set lineNumber to 1
     // While there are more characters to tokenize

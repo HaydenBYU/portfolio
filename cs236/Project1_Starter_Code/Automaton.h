@@ -8,6 +8,7 @@ protected:
     int inputRead = 0;
     int newLines = 0;
     int index = 0;
+    int invStr = 0;
     TokenType type;
 
 public:
@@ -24,6 +25,7 @@ public:
         newLines = 0;
         inputRead = 0;
         index = 0;
+        invStr = 0;
         S0(input);
         return inputRead;
     }
