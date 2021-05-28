@@ -21,7 +21,7 @@ string Token::enum_to_string(TokenType type) {
         case TokenType::LEFT_PAREN:
             return "LEFT_PAREN";
         case TokenType::RIGHT_PAREN:
-            return "RIGHT_Paren";
+            return "RIGHT_PAREN";
         case TokenType::MULTIPLY:
             return "MULTIPLY";
         case TokenType::ADD:
@@ -48,8 +48,11 @@ string Token::enum_to_string(TokenType type) {
             return "STRING";
         case TokenType::COMMENT:
             return "COMMENT";
+        default:
+            return "COMMA";
 
     }
+    return "UNDEFINED";
 }
 void Token::ToString(Token* MotherToken) {
 

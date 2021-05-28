@@ -11,7 +11,7 @@ void StringAutomaton::S0(const std::string& input) {
     }
 }
 void StringAutomaton::S1(const std::string& input) {
-    if(index == input.size() - 1 && input[index] != '\''){ //undefined string
+    if((int)index == (int)input.size() - 1 && input[index] != '\''){ //undefined string
         inputRead++;
         type = TokenType::UNDEFINED;
         if(input[index] == '\n'){
@@ -33,7 +33,7 @@ void StringAutomaton::S1(const std::string& input) {
     }
 }
 void StringAutomaton::S2(const std::string& input) {
-    if(index == input.size() - 1 && input[index] == '\''){ //undefined string
+    if((int)index == (int)input.size() - 1 && input[index] == '\''){ //undefined string
         if(input[index] == '\n'){
             newLines++;
         }

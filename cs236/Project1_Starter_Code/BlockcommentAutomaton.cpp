@@ -26,12 +26,22 @@ void BlockcommentAutomaton::S1(const std::string& input) {
     }
 }
 void BlockcommentAutomaton::S2(const std::string& input) {
-    if (input[index] == '|') {
+    if((int)input.size() - 1 == (int)index){
+        type = TokenType::UNDEFINED;
+        inputRead++;
+        if(input[index] == '\n'){
+            newLines++;
+        }
+    }
+    else if (input[index] == '|') {
         inputRead++;
         index++;
         S3(input);
     }
     else {
+        if(input[index] == '\n'){
+            newLines++;
+        }
         inputRead++;
         index++;
         S2(input);
@@ -41,7 +51,17 @@ void BlockcommentAutomaton::S3(const std::string& input) {
     if (input[index] == '#') {
         inputRead++;
     }
+    else if((int)input.size() - 1 == (int)index){
+        type = TokenType::UNDEFINED;
+        inputRead++;
+        if(input[index] == '\n'){
+            newLines++;
+        }
+    }
     else {
+        if(input[index] == '\n'){
+            newLines++;
+        }
         inputRead++;
         index++;
         S2(input);

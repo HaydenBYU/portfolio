@@ -15,6 +15,8 @@
 #include "SchemesAutomaton.h"
 #include "BlockcommentAutomaton.h"
 #include <iostream>
+#include "CommaAutomaton.h"
+#include "PeriodAutomaton.h"
 
 
 
@@ -26,8 +28,8 @@ Lexer::Lexer() {
 }
 
 Lexer::~Lexer() {
-    for(Automaton* automaton : automata){
-        delete automaton;
+    for(int i = 0; i < (int)automata.size(); i++){
+        delete automata[i];
     }
     for (Token* token : tokens) {
         delete token;
@@ -66,6 +68,8 @@ void Lexer::CreateAutomata() {
     automata.push_back(new QmarkAutomaton());
     automata.push_back(new BlockcommentAutomaton());
     automata.push_back(new IdAutomaton());
+    automata.push_back(new CommaAutomaton());
+    automata.push_back(new PeriodAutomaton());
     //automata.push_back(new UndefinedAutomaton());
     // TODO: Add the other needed automata here
 }
@@ -86,7 +90,7 @@ void Lexer::Run(std::string& input) {
         }
         if(maxRead > 0){
             string tokenStr;
-            for(unsigned int i = 0; i < maxRead; i++ ){
+            for(int i = 0; i < maxRead; i++ ){
                 tokenStr += input[i];
             }
             Token* newToken = maxAutomaton->CreateToken(tokenStr, lineNum);
@@ -96,6 +100,8 @@ void Lexer::Run(std::string& input) {
         else{
             maxRead = 1;
             if(input[0] == ' '){
+            }
+            else if(input[0] == '\t'){
             }
             else if(input[0] == '\n'){
                 lineNum++;
@@ -114,14 +120,13 @@ void Lexer::Run(std::string& input) {
     }
     Automaton* Deceptaton = automata[0];
     Token* EOFToken = Deceptaton->CreateToken("",lineNum);
-    EOFToken->SetType("EOF_TYPE");
+    EOFToken->SetType("EOF");
     tokens.push_back(EOFToken);
-    Token* JRRToken;
     for(unsigned int i = 0; i < tokens.size(); i++){
-        JRRToken->ToString(tokens.at(i));
+        EOFToken->ToString(tokens.at(i));
 
     }
-    cout << "Total Tokens = " << tokens.size() << endl;
+    cout << "Total Tokens = " << tokens.size();
     /*
     set lineNumber to 1
     // While there are more characters to tokenize
